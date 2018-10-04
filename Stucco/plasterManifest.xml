@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<plasterManifest
+  schemaVersion="1.1"
+  templateType="Project" xmlns="http://www.microsoft.com/schemas/PowerShell/Plaster/v1">
+  <metadata>
+    <name>Stucco</name>
+    <id>160a95b4-33f8-4429-8a68-5ceb587ffede</id>
+    <version>0.1.0</version>
+    <title>High-Quality PowerShell Module Template</title>
+    <description>An opinionated Plaster template for high-quality PowerShell modules</description>
+    <author>Brandon Olin</author>
+    <tags>Module, PowerShell</tags>
+  </metadata>
+  <parameters>
+
+    <parameter name='ModuleName'
+               type='text'
+               prompt='Enter the name of the module'/>
+
+    <parameter name='Description'
+               type='text'
+               prompt='Enter a description of the module'/>
+
+    <parameter name='Version'
+               type='text'
+               default='0.1.0'
+               prompt='Enter the version number (1.2.3) for the module'/>
+
+    <parameter name='FullName'
+               type='user-fullname'
+               store='text'
+               prompt='Enter your full name'/>
+
+    <!-- License -->
+    <parameter name='License'
+               type='choice'
+               default='1'
+               store='text'
+               prompt='Select a license for your module'>
+      <choice label='&amp;Apache'
+              help='Adds an Apache license file.'
+              value="Apache"/>
+      <choice label='&amp;MIT'
+              help='Adds an MIT license file.'
+              value='MIT'/>
+      <choice label='&amp;None'
+              help='No license specified.'
+              value='None'/>
+    </parameter>
+
+    <!-- Code of Conduct -->
+    <parameter name='CoC'
+               type='choice'
+               default='0'
+               store='text'
+               prompt='Do you want to include a Code of Conduct?'>
+      <choice label='&amp;Yes'
+              help="Yes, include a Code of Conduct for the project"
+              value="Yes"/>
+      <choice label='&amp;No'
+              help="No, do not include a Code of Conduct for the project"
+              value="No"/>
+    </parameter>
+    <parameter name='CoCEmail'
+               type='text'
+               condition="$PLASTER_PARAM_CoC -eq 'Yes'"
+               prompt='Enter the project team email address for the Code of Conduct'/>
+
+    <!-- MkDocs -->
+    <parameter name='MkDocs'
+               type='choice'
+               default='0'
+               store='text'
+               prompt='Do you want to include MkDocs support?'>
+      <choice label='&amp;Yes'
+              help='Yes, include a MkDocs yaml file.'
+              value="Yes"/>
+      <choice label='&amp;No'
+              help='No, do not include a MkDocs yaml file.'
+              value='MIT'/>
+    </parameter>
+    <parameter name='MkDocsSiteName'
+               type='text'
+               condition="$PLASTER_PARAM_MkDocs -eq 'Yes'"
+               prompt='Enter the MkDocs site name'/>
+    <parameter name='MkDocsGitRepoUrl'
+               type='text'
+               condition="$PLASTER_PARAM_MkDocs -eq 'Yes'"
+               prompt='Enter the git repository URL'/>
+
+    <!-- PlatyPS -->
+    <parameter name='PlatyPS'
+               type='choice'
+               default='0'
+               store='text'
+               prompt='Do you want to use PlatyPS for help documentation?'>
+      <choice label='&amp;Yes'
+              help='Yes, use PlatyPS to generate markdown help'
+              value='Yes'/>
+      <choice label='&amp;No'
+              help="No, do not include PlatyPS support"
+              value='No'/>
+    </parameter>
+
+    <!-- CI/CD -->
+    <parameter name='CICD'
+               type='choice'
+               default='0'
+               store='text'
+               prompt='Do you want to include CI/CD support?'>
+      <choice label='&amp;AppVeyor'
+              help='Adds an AppVeyor yaml file.'
+              value="AppVeyor"/>
+      <choice label='Azure &amp;Pipelines'
+              help='Adds an Azure Pipelines yaml file.'
+              value='MIT'/>
+      <choice label='&amp;None'
+              help='No license specified.'
+              value='None'/>
+    </parameter>
+
+
+  </parameters>
+  <content>
+    <message>
+Scaffold an opinionated high-quality PowerShell module with psake tasks and GitHub meta documents`n.
+    </message>
+
+    <newModuleManifest destination='${PLASTER_PARAM_ModuleName}\${PLASTER_PARAM_ModuleName}.psd1'
+                       moduleVersion='$PLASTER_PARAM_Version'
+                       rootModule='${PLASTER_PARAM_ModuleName}.psm1'
+                       author='$PLASTER_PARAM_FullName'
+                       description='$PLASTER_PARAM_ModuleDesc'
+                       encoding='UTF8-NoBOM'/>
+
+    <!-- Git -->
+    <file
+      source="template/_gitignore"
+      destination=".gitignore" />
+    <file
+      source="template/_gitattributes"
+      destination=".gitattributes" />
+
+    <!-- Build tasks -->
+    <file
+      source="template/build.ps1"
+      destination="build.ps1" />
+    <file
+      source="template/psakeFile.ps1"
+      destination="psakeFile.ps1" />
+    <file
+      source="template/requirements.psd1"
+      destination="requirements.psd1" />
+
+    <!-- CI/CD -->
+    <templateFile
+      source='template/cicd/appveyor.yml'
+      destination="appveyor.yml"
+      condition="$PLASTER_PARAM_CICD -eq 'Appveyor'"/>
+    <templateFile
+      source='template/cicd/azure-pipelines.yml'
+      destination='azure-pipelines.yml'
+      condition="$PLASTER_PARAM_CICD -eq 'AzurePipelines'"/>
+
+    <!-- Project docs -->
+    <templateFile
+      source="template/.github/**"
+      destination=".github"/>
+    <templateFile
+      source="template/CHANGELOG.md"
+      destination="CHANGELOG.md" />
+    <templateFile
+      source="template/CODE_OF_CONDUCT.md"
+      condition="$PLASTER_PARAM_CoC -eq 'Yes'"
+      destination="CODE_OF_CONDUCT.md" />
+    <templateFile
+      source='template/README.md'
+      destination='README.md' />
+
+    <templateFile
+      source='template/mkdocs.yml'
+      destination="mkdocs.yml"
+      condition="$PLASTER_PARAM_MkDocs -eq 'Yes'"/>
+
+    <!-- Recursively copy all *files* into the corresponding directory structure under dest dir -->
+    <file
+      source='template/module/Classes/**'
+      destination='${PLASTER_PARAM_ModuleName}/Classes'/>
+    <file
+      source='template/module/Private/**'
+      destination='${PLASTER_PARAM_ModuleName}/Private'/>
+    <file
+      source='template/module/Public/**'
+      destination='${PLASTER_PARAM_ModuleName}/Public'/>
+    <file
+      source='template/tests/**'
+      destination='Tests'/>
+    <file
+      source='template/.vscode/**'
+      destination='.vscode'/>
+
+    <!-- Project license -->
+    <templateFile
+      source='template/license/Apache.txt'
+      destination='LICENSE'
+      condition="$PLASTER_PARAM_License -eq 'Apache'"
+      encoding="UTF8-NoBOM"/>
+    <templateFile
+      source='template/license/MIT.txt'
+      destination='LICENSE'
+      condition="$PLASTER_PARAM_License -eq 'MIT'"/>
+
+    <templateFile condition="$PLASTER_PARAM_PlatyPS -contains 'Yes'"
+                  source='template/docs/en-US/about_Module.help.md'
+                  destination='docs/en-US/about_${PLASTER_PARAM_ModuleName}.help.md'/>
+    <templateFile condition="$PLASTER_PARAM_PlatyPS -contains 'No'"
+                  source='template/docs/en-US/about_Module.help.txt'
+                  destination='${PLASTER_PARAM_ModuleName}/en-US/about_${PLASTER_PARAM_ModuleName}.help.txt'/>
+
+    <file
+      source="template/module/Module.psm1"
+      destination="${PLASTER_PARAM_ModuleName}\${PLASTER_PARAM_ModuleName}.psm1"/>
+
+      <message nonewline='true'>`n`nYour new PowerShell module project [$PLASTER_PARAM_ModuleName] has been created</message>
+  </content>
+</plasterManifest>

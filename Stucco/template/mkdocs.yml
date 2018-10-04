@@ -1,0 +1,3 @@
+site_name: <%=$PLASTER_PARAM_MkDocsSiteName%>
+repo_url: <%=$PLASTER_PARAM_MkDocsGitRepoUrl%>
+theme: readthedocs
