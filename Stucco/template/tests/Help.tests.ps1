@@ -1,7 +1,7 @@
 
 # Taken with love from @juneb_get_help (https://raw.githubusercontent.com/juneb/PesterTDD/master/Module.Help.Tests.ps1)
 
-$outputDir       = Join-Path -Path $ENV:BHProjectPath -ChildPath 'out'
+$outputDir       = Join-Path -Path $ENV:BHProjectPath -ChildPath 'output'
 $outputModDir    = Join-Path -Path $outputDir -ChildPath $env:BHProjectName
 $manifest        = Import-PowerShellDataFile -Path $env:BHPSModuleManifest
 $outputModVerDir = Join-Path -Path $outputModDir -ChildPath $manifest.ModuleVersion
