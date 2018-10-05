@@ -1,0 +1,3 @@
+function GetHelloWorld {
+    'Hello world'
+}
