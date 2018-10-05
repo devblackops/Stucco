@@ -1,7 +1,7 @@
 
 $moduleName         = $env:BHProjectName
 $manifest           = Import-PowerShellDataFile -Path $env:BHPSModuleManifest
-$outputDir          = Join-Path -Path $ENV:BHProjectPath -ChildPath 'out'
+$outputDir          = Join-Path -Path $ENV:BHProjectPath -ChildPath 'Output'
 $outputModDir       = Join-Path -Path $outputDir -ChildPath $env:BHProjectName
 $outputModVerDir    = Join-Path -Path $outputModDir -ChildPath $manifest.ModuleVersion
 $outputManifestPath = Join-Path -Path $outputModVerDir -Child "$($moduleName).psd1"
