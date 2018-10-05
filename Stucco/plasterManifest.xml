@@ -88,6 +88,20 @@
                condition="$PLASTER_PARAM_MkDocs -eq 'Yes'"
                prompt='Enter the git repository URL'/>
 
+    <!-- PowerShell classes -->
+    <parameter name='Classes'
+               type='choice'
+               default='1'
+               store='text'
+               prompt='Will you be using PowerShell classes?'>
+      <choice label='&amp;Yes'
+              help='Yes, classes will be used in the module'
+              value='Yes'/>
+      <choice label='&amp;No'
+              help="No, classes will not be used in the module"
+              value='No'/>
+    </parameter>
+
     <!-- PlatyPS -->
     <parameter name='PlatyPS'
                type='choice'
@@ -130,7 +144,7 @@ Scaffold an opinionated high-quality PowerShell module with psake tasks and GitH
                        moduleVersion='$PLASTER_PARAM_Version'
                        rootModule='${PLASTER_PARAM_ModuleName}.psm1'
                        author='$PLASTER_PARAM_FullName'
-                       description='$PLASTER_PARAM_ModuleDesc'
+                       description='$PLASTER_PARAM_Description'
                        encoding='UTF8-NoBOM'/>
 
     <!-- Git -->
@@ -185,7 +199,8 @@ Scaffold an opinionated high-quality PowerShell module with psake tasks and GitH
     <!-- Recursively copy all *files* into the corresponding directory structure under dest dir -->
     <file
       source='template/module/Classes/**'
-      destination='${PLASTER_PARAM_ModuleName}/Classes'/>
+      destination='${PLASTER_PARAM_ModuleName}/Classes'
+      condition="$PLASTER_PARAM_Classes -eq 'Yes'"/>
     <file
       source='template/module/Private/**'
       destination='${PLASTER_PARAM_ModuleName}/Private'/>
