@@ -11,7 +11,7 @@
     'BuildHelpers' = @{
         Version = '2.0.0'
     }
-    'PowerShellBuild.Common' = @{
+    'PowerShellBuild' = @{
         Version = '0.1.0'
     }
 }
