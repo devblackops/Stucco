@@ -1,4 +1,4 @@
 
 task default
 
-task Build -FromModule PowerShellBuild -Version '0.1.0'
+task Build -FromModule PowerShellBuild -Version '0.2.0'
