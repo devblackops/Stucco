@@ -1,4 +1,5 @@
 
-task default
+task default -depends test
 
-task Build -FromModule PowerShellBuild -Version '0.2.0'
+task Test -FromModule PowerShellBuild -Version 0.2.0
+
