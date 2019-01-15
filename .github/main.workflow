@@ -4,6 +4,6 @@ workflow "psake" {
 }
 
 action "test" {
-  uses  = "devblackops/psake-github-actions/task@master"
+  uses  = "devblackops/psake-github-action@master"
   args  = "test"
 }
