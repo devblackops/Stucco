@@ -4,6 +4,9 @@
     }
     'Pester' = @{
         Version = '4.4.1'
+        Parameters = @{
+            SkipPublisherCheck = $true
+        }
     }
     'psake' = @{
         Version = '4.8.0'
