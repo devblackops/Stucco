@@ -3,7 +3,7 @@
         Target = 'CurrentUser'
     }
     'Pester' = @{
-        Version = '4.4.1'
+        Version = '4.7.3'
         Parameters = @{
             SkipPublisherCheck = $true
         }
@@ -12,9 +12,9 @@
         Version = '4.8.0'
     }
     'BuildHelpers' = @{
-        Version = '2.0.0'
+        Version = '2.0.8'
     }
     'PowerShellBuild' = @{
-        Version = '0.1.0'
+        Version = '0.3.0'
     }
 }
