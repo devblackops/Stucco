@@ -5,6 +5,6 @@ properties {
     $PSBPreference.Build.CompileModule = $false
 }
 
-task default
+task default -depends Test
 
-task Build -FromModule PowerShellBuild -Version '0.3.0'
+task Test -FromModule PowerShellBuild -Version '0.3.0'
