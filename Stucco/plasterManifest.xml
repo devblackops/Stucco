@@ -5,7 +5,7 @@
   <metadata>
     <name>Stucco</name>
     <id>160a95b4-33f8-4429-8a68-5ceb587ffede</id>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <title>High-Quality PowerShell Module Template</title>
     <description>An opinionated Plaster template for high-quality PowerShell modules</description>
     <author>Brandon Olin</author>
@@ -127,7 +127,7 @@
               value="AppVeyor"/>
       <choice label='Azure &amp;Pipelines'
               help='Adds an Azure Pipelines yaml file.'
-              value='MIT'/>
+              value='AzurePipelines'/>
       <choice label='&amp;None'
               help='No license specified.'
               value='None'/>
