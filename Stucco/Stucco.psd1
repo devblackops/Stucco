@@ -8,9 +8,10 @@
     Description       = 'An opinionated Plaster template for high-quality PowerShell modules'
     PowerShellVersion = '3.0'
     RequiredModules   = @(
-        @{ModuleName = 'BuildHelpers'; ModuleVersion = '2.0.8' }
-        @{ModuleName = 'Plaster';      ModuleVersion = '1.1.3'}
-        @{ModuleName = 'psake';        ModuleVersion = '4.8.0'}
+        @{ModuleName = 'BuildHelpers';    ModuleVersion = '2.0.8'}
+        @{ModuleName = 'Plaster';         ModuleVersion = '1.1.3'}
+        @{ModuleName = 'psake';           ModuleVersion = '4.8.0'}
+        @{ModuleName = 'PowerShellBuild'; ModuleVersion = '0.3.0'}
     )
     FunctionsToExport = @()
     CmdletsToExport   = @()
