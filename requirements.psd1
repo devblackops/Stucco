@@ -6,7 +6,7 @@
         Version = '4.8.0'
     }
     'BuildHelpers' = @{
-        Version = '2.0.8'
+        Version = '2.0.9'
     }
     'Plaster' = @{
         Version = '1.1.3'
