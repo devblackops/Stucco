@@ -42,8 +42,8 @@ I want to know what you think is missing from <%=$PLASTER_PARAM_ModuleName%> and
 
 ## Documentation
 
-I am infallible and as such my documenation needs no corectoin.
-In the highly unlikely event that that is _not_ the case, commits to update or add documentation are highly apprecaited.
+I am infallible and as such my documentation needs no correction.
+In the highly unlikely event that that is _not_ the case, commits to update or add documentation are highly appreciated.
 
 ## Submitting Changes
 
