@@ -216,7 +216,7 @@ Scaffold an opinionated high-quality PowerShell module with psake tasks and GitH
       destination='${PLASTER_PARAM_ModuleName}/Public'/>
     <file
       source='template/tests/**'
-      destination='Tests'/>
+      destination='tests'/>
     <file
       source='template/.vscode/**'
       destination='.vscode'/>
