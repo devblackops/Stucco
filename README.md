@@ -18,7 +18,7 @@ Apart from the PowerShell module itself, this template creates project scaffoldi
 - Optional [PlatyPS](https://github.com/PowerShell/platyPS) support for markdown-based help documentation
 - Project dependency resolution using [PSDepend](https://github.com/RamblingCookieMonster/PSDepend)
 - [psake](https://github.com/psake/psake) tasks using [PowerShellBuild](https://github.com/psake/PowerShellBuild) for build / test automation
-- [AppVeyor](https://www.appveyor.com/) or [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) for CI/CD
+- [AppVeyor](https://www.appveyor.com/), [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) or [GitLab CI/CD](https://docs.gitlab.com/ee/ci/) for CI/CD
 - GitHub templates for contributing, issues, and pull requests
 - VSCode tasks
 
