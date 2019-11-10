@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Bumped versions of depedent modules [Pester](https://github.com/pester/Pester), [BuildHelpers](https://github.com/RamblingCookieMonster/BuildHelpers), and [PowerShellBuild](https://github.com/psake/PowerShellBuild)
+- Bumped versions of dependent modules [Pester](https://github.com/pester/Pester), [BuildHelpers](https://github.com/RamblingCookieMonster/BuildHelpers), and [PowerShellBuild](https://github.com/psake/PowerShellBuild)
 
 ### Fixed
 
