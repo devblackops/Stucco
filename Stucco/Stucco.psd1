@@ -1,6 +1,6 @@
 @{
     # RootModule = ''
-    ModuleVersion     = '0.1.1'
+    ModuleVersion     = '0.2.0'
     GUID              = '24effa48-ac05-4efd-872d-40d556089ce0'
     Author            = 'Brandon Olin'
     CompanyName       = 'Community'
@@ -8,10 +8,10 @@
     Description       = 'An opinionated Plaster template for high-quality PowerShell modules'
     PowerShellVersion = '3.0'
     RequiredModules   = @(
-        @{ModuleName = 'BuildHelpers';    ModuleVersion = '2.0.9'}
+        @{ModuleName = 'BuildHelpers';    ModuleVersion = '2.0.11'}
         @{ModuleName = 'Plaster';         ModuleVersion = '1.1.3'}
         @{ModuleName = 'psake';           ModuleVersion = '4.8.0'}
-        @{ModuleName = 'PowerShellBuild'; ModuleVersion = '0.3.1'}
+        @{ModuleName = 'PowerShellBuild'; ModuleVersion = '0.4.0'}
     )
     FunctionsToExport = @()
     CmdletsToExport   = @()
