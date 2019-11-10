@@ -128,6 +128,9 @@
       <choice label='Azure &amp;Pipelines'
               help='Adds an Azure Pipelines yaml file.'
               value='AzurePipelines'/>
+    <choice label='Git&amp;Hub Actions'
+              help='Adds a GitHub Actions workflow file.'
+              value='GitHubActions'/>
       <choice label='&amp;GitLab CI'
               help='Adds a GitLab CI yaml file.'
               value='GitLabCI'/>
@@ -178,6 +181,10 @@ Scaffold an opinionated high-quality PowerShell module with psake tasks and GitH
       source='template/cicd/azure-pipelines.yml'
       destination='azure-pipelines.yml'
       condition="$PLASTER_PARAM_CICD -eq 'AzurePipelines'"/>
+    <templateFile
+      source='template/cicd/github-actions.yml'
+      destination='.github/workflows/CI.yaml'
+      condition="$PLASTER_PARAM_CICD -eq 'GitHubActions'"/>
     <templateFile
       source='template/cicd/.gitlab-ci.yml'
       destination='.gitlab-ci.yml'
