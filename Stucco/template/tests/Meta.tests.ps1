@@ -21,7 +21,7 @@ Describe 'Text files formatting' {
                     Write-Warning "File $($_.FullName) contains 0x00 bytes. It's probably uses Unicode and need to be converted to UTF-8. Use Fixer 'Get-UnicodeFilesList `$pwd | ConvertTo-UTF8'."
                 }
             }
-            $unicodeFilesCount | Should -Be 0
+            $unicodeFilesCount | Should Be 0
         }
     }
 
@@ -35,7 +35,7 @@ Describe 'Text files formatting' {
                     $totalTabsCount++
                 }
             }
-            $totalTabsCount | Should -Be 0
+            $totalTabsCount | Should Be 0
         }
     }
 }
