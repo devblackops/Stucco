@@ -18,5 +18,5 @@ Function Get-HelloWorld {
         $Value = 'GetHelloWorld'
     )
 
-    $value
+    $Value
 }
