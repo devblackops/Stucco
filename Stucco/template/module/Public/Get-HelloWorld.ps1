@@ -10,6 +10,13 @@ Function Get-HelloWorld {
 
         Runs the command
     #>
-    $value = GetHelloWorld
+    [CmdletBinding()]
+    param (
+        # Parameter description can go here or above in format: .PARAMETER  <Parameter-Name>
+        [Parameter()]
+        [string]
+        $Value = 'GetHelloWorld'
+    )
+
     $value
 }
