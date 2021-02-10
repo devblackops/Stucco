@@ -1,117 +1,110 @@
-
-# Taken with love from @juneb_get_help (https://raw.githubusercontent.com/juneb/PesterTDD/master/Module.Help.Tests.ps1)
-
-$outputDir       = Join-Path -Path $ENV:BHProjectPath -ChildPath 'Output'
-$outputModDir    = Join-Path -Path $outputDir -ChildPath $env:BHProjectName
-$manifest        = Import-PowerShellDataFile -Path $env:BHPSModuleManifest
-$outputModVerDir = Join-Path -Path $outputModDir -ChildPath $manifest.ModuleVersion
-
-# Get module commands
-# Remove all versions of the module from the session. Pester can't handle multiple versions.
-#Get-Module $env:BHProjectName | Remove-Module -Force
-Import-Module -Name (Join-Path -Path $outputModVerDir -ChildPath "$($env:BHProjectName).psd1") -Verbose:$false -ErrorAction Stop
-
-$params = @{
-    Module = (Get-Module $env:BHProjectName)
-    CommandType = [System.Management.Automation.CommandTypes[]]'Cmdlet, Function' # Not alias
-}
-
-if ($PSVersionTable.PSVersion.Major -lt 6) {
-    $params.CommandType[0] += 'Workflow'
-}
-
-$commands = Get-Command @params
-
 ## When testing help, remember that help is cached at the beginning of each session.
 ## To test, restart session.
 
-foreach ($command in $commands) {
-    $commandName = $command.Name
+# Taken with love from @juneb_get_help (https://raw.githubusercontent.com/juneb/PesterTDD/master/Module.Help.Tests.ps1)
 
-    # The module-qualified command fails on Microsoft.PowerShell.Archive cmdlets
-    $help = Get-Help $commandName -ErrorAction SilentlyContinue
+function script:FilterOutCommonParams {
+    [CmdletBinding()]
+    param ($Params)
+    $commonParams = @(
+        'Debug', 'ErrorAction', 'ErrorVariable', 'InformationAction', 'InformationVariable',
+        'OutBuffer', 'OutVariable', 'PipelineVariable', 'Verbose', 'WarningAction',
+        'WarningVariable', 'Confirm', 'Whatif'
+    )
+    $params | Where-Object { $_.Name -notin $commonParams } | Sort-Object -Property Name -Unique
+}
 
-    Describe "Test help for $commandName" {
+Describe 'Help Tests' {
+    BeforeDiscovery {
+        # $env:BHProjectName (Module Info from BuildHelpers)
+        $params = @{
+            Module = (Get-Module $ModuleName)
+            CommandType = [System.Management.Automation.CommandTypes[]]'Cmdlet, Function' # Not alias
+        }
+
+        if ($PSVersionTable.PSVersion.Major -lt 6) {
+            $params.CommandType[0] += 'Workflow'
+        }
+
+        $commands = Get-Command @params
+    }
+
+    Describe "Command <_.Name>" -ForEach $commands {
+        BeforeDiscovery {
+            # BeforeDiscovery scope is separate from the below BeforeAll, Describe and It blocks
+            $command = $_
+            $commandHelp = Get-Help $command.Name -ErrorAction SilentlyContinue
+
+            $commandParameters = script:FilterOutCommonParams -Params $command.ParameterSets.Parameters
+            $commandParameterNames = $commandParameters.Name
+
+            $helpParameters = script:FilterOutCommonParams -Params $commandHelp.Parameters.Parameter
+            $helpParameterNames = $helpParameters.Name
+
+            $helpLinks = $commandHelp.relatedLinks.navigationLink.uri
+        }
+
+        BeforeAll {
+            # BeforeDiscovery scope is separate from the below BeforeAll, Describe and It blocks
+            # Therefore re-creating the variables.
+            $command = $_
+            $commandHelp = Get-Help $command.Name -ErrorAction SilentlyContinue
+
+            $commandParameters = script:FilterOutCommonParams -Params $command.ParameterSets.Parameters
+            $commandParameterNames = $commandParameters.Name
+
+            $helpParameters = script:FilterOutCommonParams -Params $commandHelp.Parameters.Parameter
+        }
 
         # If help is not found, synopsis in auto-generated help is the syntax diagram
         It 'should not be auto-generated' {
-            $help.Synopsis | Should Not BeLike '*`[`<CommonParameters`>`]*'
+            $commandHelp.Synopsis | Should -Not -BeLike '*`[`<CommonParameters`>`]*'
         }
 
         # Should be a description for every function
-        It "gets description for $commandName" {
-            $help.Description | Should Not BeNullOrEmpty
+        It "gets description" {
+            $commandHelp.Description | Should -Not -BeNullOrEmpty
         }
 
         # Should be at least one example
-        It "gets example code from $commandName" {
-            ($help.Examples.Example | Select-Object -First 1).Code | Should Not BeNullOrEmpty
+        It "gets example code" {
+            ($commandHelp.Examples.Example | Select-Object -First 1).Code | Should -Not -BeNullOrEmpty
         }
 
         # Should be at least one example description
-        It "gets example help from $commandName" {
-            ($help.Examples.Example.Remarks | Select-Object -First 1).Text | Should Not BeNullOrEmpty
+        It "gets example help" {
+            ($commandHelp.Examples.Example.Remarks | Select-Object -First 1).Text | Should -Not -BeNullOrEmpty
         }
 
-        Context "Test parameter help for $commandName" {
-
-            $common = 'Debug', 'ErrorAction', 'ErrorVariable', 'InformationAction', 'InformationVariable', 'OutBuffer',
-                'OutVariable', 'PipelineVariable', 'Verbose', 'WarningAction', 'WarningVariable', 'Confirm', 'Whatif'
-
-            $parameters = $command.ParameterSets.Parameters |
-                Sort-Object -Property Name -Unique |
-                Where-Object { $_.Name -notin $common }
-            $parameterNames = $parameters.Name
-
-            ## Without the filter, WhatIf and Confirm parameters are still flagged in "finds help parameter in code" test
-            $helpParameters = $help.Parameters.Parameter |
-                Where-Object { $_.Name -notin $common } |
-                Sort-Object -Property Name -Unique
-            $helpParameterNames = $helpParameters.Name
-
-            foreach ($parameter in $parameters) {
-                $parameterName = $parameter.Name
-                $parameterHelp = $help.parameters.parameter | Where-Object Name -EQ $parameterName
-
-                # Should be a description for every parameter
-                It "gets help for parameter: $parameterName : in $commandName" {
-                    $parameterHelp.Description.Text | Should Not BeNullOrEmpty
-                }
-
-                # Required value in Help should match IsMandatory property of parameter
-                It "help for $parameterName parameter in $commandName has correct Mandatory value" {
-                    $codeMandatory = $parameter.IsMandatory.toString()
-                    $parameterHelp.Required | Should Be $codeMandatory
-                }
-
-                # Parameter type in Help should match code
-                # It "help for $commandName has correct parameter type for $parameterName" {
-                #     $codeType = $parameter.ParameterType.Name
-                #     # To avoid calling Trim method on a null object.
-                #     $helpType = if ($parameterHelp.parameterValue) { $parameterHelp.parameterValue.Trim() }
-                #     $helpType | Should be $codeType
-                # }
-            }
-
-            foreach ($helpParm in $HelpParameterNames) {
-                # Shouldn't find extra parameters in help.
-                It "finds help parameter in code: $helpParm" {
-                    $helpParm -in $parameterNames | Should Be $true
-                }
-            }
+        It "finds help parameter <_> in command parameters" -ForEach $helpParameterNames {
+            $_ -in $commandparameterNames | Should -Be $true
         }
 
-        Context "Help Links should be Valid for $commandName" {
-            $link = $help.relatedLinks.navigationLink.uri
+        It "should have 200 Status Code for help link: <_>" -ForEach $helpLinks {
+            (Invoke-WebRequest -Uri $_ -UseBasicParsing).StatusCode | Should -Be '200'
+        }
 
-            foreach ($link in $links) {
-                if ($link) {
-                    # Should have a valid uri if one is provided.
-                    it "[$link] should have 200 Status Code for $commandName" {
-                        $Results = Invoke-WebRequest -Uri $link -UseBasicParsing
-                        $Results.StatusCode | Should Be '200'
-                    }
-                }
+        Describe "For Command parameter <_.Name>" -ForEach $commandParameters {
+            BeforeAll {
+                $commandParameter = $_
+
+                $parameterHelp = $helpParameters | Where-Object {$_.Name -eq $commandParameter.Name}
+                $parameterHelpType = if ($parameterHelp.parameterValue) { $parameterHelp.parameterValue.Trim() }
+            }
+
+            # Should be a description for every parameter
+            It "gets help" {
+                $parameterHelp.Description.Text | Should -Not -BeNullOrEmpty
+            }
+
+            # Required value in Help should match IsMandatory property of parameter
+            It "has correct Mandatory value" {
+                $parameterHelp.Required | Should -Be $commandParameter.IsMandatory.toString()
+            }
+
+            # Parameter type in Help should match code
+            It "has correct parameter type" {
+                $parameterHelpType | Should -Be $commandParameter.ParameterType.Name
             }
         }
     }

@@ -42,8 +42,12 @@ function Get-TextFilesList {
         [Parameter(Mandatory)]
         [string]$Root
     )
+
     Get-ChildItem -Path $Root -File -Recurse |
-        Where-Object { @('.gitignore', '.gitattributes', '.ps1', '.psm1', '.psd1', '.json', '.xml', '.cmd', '.mof') -contains $_.Extension }
+        Where-Object {
+            @('.gitignore', '.gitattributes', '.ps1', '.psm1', '.psd1', '.json', '.xml', '.cmd', '.mof') `
+                -contains $_.Extension
+        }
 }
 
 function Test-FileUnicode {
@@ -59,7 +63,6 @@ function Test-FileUnicode {
         $bytes = [System.IO.File]::ReadAllBytes($path)
         $zeroBytes = @($bytes -eq 0)
         return [bool]$zeroBytes.Length
-
     }
 }
 

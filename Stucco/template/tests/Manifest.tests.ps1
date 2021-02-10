@@ -1,86 +1,83 @@
-
-$moduleName         = $env:BHProjectName
-$manifest           = Import-PowerShellDataFile -Path $env:BHPSModuleManifest
-$outputDir          = Join-Path -Path $ENV:BHProjectPath -ChildPath 'Output'
-$outputModDir       = Join-Path -Path $outputDir -ChildPath $env:BHProjectName
-$outputModVerDir    = Join-Path -Path $outputModDir -ChildPath $manifest.ModuleVersion
-$outputManifestPath = Join-Path -Path $outputModVerDir -Child "$($moduleName).psd1"
-$changelogPath      = Join-Path -Path $env:BHProjectPath -Child 'CHANGELOG.md'
-
 Describe 'Module manifest' {
-    Context 'Validation' {
+    BeforeAll {
+        # Module Info (From BuildHelpers)
+        $ModuleName         = $env:BHProjectName
+        $ModuleManifestPath = $env:BHPSModuleManifest
 
-        $script:manifest = $null
+        $ManifestData = Test-ModuleManifest -Path $ModuleManifestPath `
+                                            -ErrorAction Stop `
+                                            -WarningAction SilentlyContinue `
+                                            -Verbose:$false
 
-        It 'has a valid manifest' {
-            {
-                $script:manifest = Test-ModuleManifest -Path $outputManifestPath -Verbose:$false -ErrorAction Stop -WarningAction SilentlyContinue
-            } | Should Not Throw
-        }
-
-        It 'has a valid name in the manifest' {
-            $script:manifest.Name | Should Be $env:BHProjectName
-        }
-
-        It 'has a valid root module' {
-            $script:manifest.RootModule | Should Be "$($moduleName).psm1"
-        }
-
-        It 'has a valid version in the manifest' {
-            $script:manifest.Version -as [Version] | Should Not BeNullOrEmpty
-        }
-
-        It 'has a valid description' {
-            $script:manifest.Description | Should Not BeNullOrEmpty
-        }
-
-        It 'has a valid author' {
-            $script:manifest.Author | Should Not BeNullOrEmpty
-        }
-
-        It 'has a valid guid' {
-            {
-                [guid]::Parse($script:manifest.Guid)
-            } | Should Not throw
-        }
-
-        It 'has a valid copyright' {
-            $script:manifest.CopyRight | Should Not BeNullOrEmpty
-        }
-
-        $script:changelogVersion = $null
-        It 'has a valid version in the changelog' {
-            foreach ($line in (Get-Content $changelogPath)) {
-                if ($line -match "^##\s\[(?<Version>(\d+\.){1,3}\d+)\]") {
-                    $script:changelogVersion = $matches.Version
-                    break
-                }
+        $ChangelogPath    = Join-Path -Path $env:BHProjectPath -ChildPath 'CHANGELOG.md'
+        $ChangelogVersion = $null
+        foreach ($line in (Get-Content $ChangelogPath)) {
+            if ($line -match "^##\s\[(?<Version>(\d+\.){1,3}\d+)\]") {
+                $ChangelogVersion = $matches.Version
+                break
             }
-            $script:changelogVersion               | Should Not BeNullOrEmpty
-            $script:changelogVersion -as [Version] | Should Not BeNullOrEmpty
         }
+    }
 
-        It 'changelog and manifest versions are the same' {
-            $script:changelogVersion -as [Version] | Should be ( $script:manifest.Version -as [Version] )
-        }
+    It 'has a valid manifest' {
+        $ManifestData | Should -Not -BeNullOrEmpty
+    }
 
+    It 'has a valid name in the manifest' {
+        $ManifestData.Name | Should -Be $ModuleName
+    }
+
+    It 'has a valid version in the manifest' {
+        $ManifestData.Version -as [Version] | Should -Not -BeNullOrEmpty
+    }
+
+    It 'has a valid description' {
+        $ManifestData.Description | Should -Not -BeNullOrEmpty
+    }
+
+    It 'has a valid author' {
+        $ManifestData.Author | Should -Not -BeNullOrEmpty
+    }
+
+    It 'has a valid guid' {
+        { [guid]::Parse($ManifestData.Guid) } | Should -Not -Throw
+    }
+
+    It 'has a valid copyright' {
+        $ManifestData.CopyRight | Should -Not -BeNullOrEmpty
+    }
+
+    It 'has a valid version in the changelog' {
+        $ChangelogVersion               | Should -Not -BeNullOrEmpty
+        $ChangelogVersion -as [Version] | Should -Not -BeNullOrEmpty
+    }
+
+    It 'changelog and manifest versions are the same' {
+        $ChangelogVersion -as [Version] | Should -Be ( $ManifestData.Version -as [Version] )
+    }
+}
+
+Describe 'Git Tagging' {
+    BeforeAll {
+        $GitTagVersion = $null
         if (Get-Command git.exe -ErrorAction SilentlyContinue) {
-            $script:tagVersion = $null
-            It 'is tagged with a valid version' -skip {
-                $thisCommit = git.exe log --decorate --oneline HEAD~1..HEAD
-
-                if ($thisCommit -match 'tag:\s*(\d+(?:\.\d+)*)') {
-                    $script:tagVersion = $matches[1]
-                }
-
-                $script:tagVersion               | Should Not BeNullOrEmpty
-                $script:tagVersion -as [Version] | Should Not BeNullOrEmpty
-            }
-
-            It 'all versions are the same' {
-                $script:changelogVersion -as [Version] | Should be ( $script:manifest.Version -as [Version] )
-                #$script:manifest.Version -as [Version] | Should be ( $script:tagVersion -as [Version] )
-            }
+            $thisCommit = git.exe log --decorate --oneline HEAD~1..HEAD
+            if ($thisCommit -match 'tag:\s*(\d+(?:\.\d+)*)') { GitTagVersion = $matches[1] }
         }
+
+         # Module Info (From BuildHelpers)
+         $ManifestData = Test-ModuleManifest -Path $env:BHPSModuleManifest `
+                                             -ErrorAction Stop `
+                                             -WarningAction SilentlyContinue `
+                                             -Verbose:$false
+    }
+
+    It 'is tagged with a valid version' -Skip {
+        $GitTagVersion               | Should Not BeNullOrEmpty
+        $GitTagVersion -as [Version] | Should Not BeNullOrEmpty
+    }
+
+    It 'matches Manifest version' -Skip {
+        $ManifestData.Version -as [Version] | Should be ( $GitTagVersion -as [Version] )
     }
 }
