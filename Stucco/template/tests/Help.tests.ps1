@@ -18,7 +18,7 @@ Describe 'Help Tests' {
     BeforeDiscovery {
         # $env:BHProjectName (Module Info from BuildHelpers)
         $params = @{
-            Module = (Get-Module $ModuleName)
+            Module = (Get-Module $env:BHProjectName)
             CommandType = [System.Management.Automation.CommandTypes[]]'Cmdlet, Function' # Not alias
         }
 
