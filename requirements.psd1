@@ -3,10 +3,10 @@
         Target = 'CurrentUser'
     }
     'psake' = @{
-        Version = '4.8.0'
+        Version = '4.9.0'
     }
     'BuildHelpers' = @{
-        Version = '2.0.11'
+        Version = '2.0.16'
     }
     'Plaster' = @{
         Version = '1.1.3'
@@ -15,6 +15,6 @@
         Version = '0.4.0'
     }
     'PSScriptAnalyzer' = @{
-        Version = '1.18.1'
+        Version = '1.19.1'
     }
 }
