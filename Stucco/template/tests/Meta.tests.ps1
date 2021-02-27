@@ -1,18 +1,23 @@
-Set-StrictMode -Version latest
+BeforeAll {
 
-# Make sure MetaFixers.psm1 is loaded - it contains Get-TextFilesList
-Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath 'MetaFixers.psm1') -Verbose:$false -Force
+    Set-StrictMode -Version latest
 
-$projectRoot = $ENV:BHProjectPath
-if(-not $projectRoot) {
-    $projectRoot = $PSScriptRoot
+    # Make sure MetaFixers.psm1 is loaded - it contains Get-TextFilesList
+    Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath 'MetaFixers.psm1') -Verbose:$false -Force
+
+    $projectRoot = $ENV:BHProjectPath
+    if (-not $projectRoot) {
+        $projectRoot = $PSScriptRoot
+    }
+
+    $allTextFiles = Get-TextFilesList $projectRoot
+
 }
 
 Describe 'Text files formatting' {
 
-    $allTextFiles = Get-TextFilesList $projectRoot
-
     Context 'Files encoding' {
+
         It "Doesn't use Unicode encoding" {
             $unicodeFilesCount = 0
             $allTextFiles | Foreach-Object {
@@ -23,9 +28,11 @@ Describe 'Text files formatting' {
             }
             $unicodeFilesCount | Should -Be 0
         }
+
     }
 
     Context 'Indentations' {
+
         It 'Uses spaces for indentation, not tabs' {
             $totalTabsCount = 0
             $allTextFiles | Foreach-Object {
@@ -37,5 +44,6 @@ Describe 'Text files formatting' {
             }
             $totalTabsCount | Should -Be 0
         }
+
     }
 }
