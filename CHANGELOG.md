@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - [**#PR16**](https://github.com/devblackops/Stucco/pull/16) - Add parameter description to example function in template module (via [@mikejwhat](https://github.com/mikejwhat))
 
+### Fixed
+
+- [**#PR22**](https://github.com/devblackops/Stucco/pull/22) - Update dependencies for psake, BuildHelpers, and PSScriptAnalzyer (via [@HP41](https://github.com/HP41))
+
 ## [0.2.0] 2019-11-09
 
 ### Added
