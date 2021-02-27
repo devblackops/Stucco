@@ -9,10 +9,10 @@
         }
     }
     'psake' = @{
-        Version = '4.8.0'
+        Version = '4.9.0'
     }
     'BuildHelpers' = @{
-        Version = '2.0.11'
+        Version = '2.0.16'
     }
     'PowerShellBuild' = @{
         Version = '0.4.0'
