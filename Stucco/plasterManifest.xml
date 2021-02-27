@@ -116,6 +116,20 @@
               value='No'/>
     </parameter>
 
+    <!-- VSCode dev container -->
+    <parameter name='devcontainer'
+               type='choice'
+               default='1'
+               store='text'
+               prompt='Do you want to include VSCode dev container support?'>
+      <choice label='&amp;Yes'
+              help="Yes, include dev container configuration for the project"
+              value="Yes"/>
+      <choice label='&amp;No'
+              help="No, do not include dev container configuration"
+              value="No"/>
+    </parameter>
+
     <!-- CI/CD -->
     <parameter name='CICD'
                type='choice'
@@ -171,6 +185,12 @@ Scaffold an opinionated high-quality PowerShell module with psake tasks and GitH
     <file
       source="template/requirements.psd1"
       destination="requirements.psd1" />
+
+    <!-- VSCode dev container -->
+    <templateFile
+      source="template/.devcontainer/**"
+      destination=".devcontainer"
+      condition="$PLASTER_PARAM_devcontainer -eq 'Yes'"/>
 
     <!-- CI/CD -->
     <templateFile
