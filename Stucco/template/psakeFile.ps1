@@ -4,6 +4,7 @@ properties {
     # in the PowerShellBuild shared psake task module
     $PSBPreference.Build.CompileModule = $false
     $PSBPreference.Help.DefaultLocale = 'en-US'
+    $PSBPreference.Test.OutputFile = 'out/testResults.xml'
 }
 
 task default -depends Test
