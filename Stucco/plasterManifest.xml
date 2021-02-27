@@ -246,9 +246,15 @@ Scaffold an opinionated high-quality PowerShell module with psake tasks and GitH
                   source='template/docs/en-US/about_Module.help.txt'
                   destination='${PLASTER_PARAM_ModuleName}/en-US/about_${PLASTER_PARAM_ModuleName}.help.txt'/>
 
+    <!-- Use PSM1 that supports classes if classes are enabled -->
+    <file
+      source="template/module/Module_classes.psm1"
+      destination="${PLASTER_PARAM_ModuleName}\${PLASTER_PARAM_ModuleName}.psm1"
+      condition="$PLASTER_PARAM_Classes -eq 'Yes'"/>
     <file
       source="template/module/Module.psm1"
-      destination="${PLASTER_PARAM_ModuleName}\${PLASTER_PARAM_ModuleName}.psm1"/>
+      destination="${PLASTER_PARAM_ModuleName}\${PLASTER_PARAM_ModuleName}.psm1"
+      condition="$PLASTER_PARAM_Classes -eq 'No'"/>
 
       <message nonewline='true'>`n`nYour new PowerShell module project [$PLASTER_PARAM_ModuleName] has been created</message>
   </content>
