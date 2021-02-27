@@ -1,6 +1,6 @@
 @{
     # RootModule = ''
-    ModuleVersion     = '0.2.0'
+    ModuleVersion     = '0.3.0'
     GUID              = '24effa48-ac05-4efd-872d-40d556089ce0'
     Author            = 'Brandon Olin'
     CompanyName       = 'Community'
