@@ -1,5 +1,11 @@
 # Stucco
 
+| GitHub Actions |  PS Gallery | License |
+|----------------|-------------|---------|
+[![GitHub Actions Status][github-actions-badge]][github-actions-build] | [![PowerShell Gallery][psgallery-badge]][psgallery] | [![License][license-badge]][license]
+
+---
+
 <p align="center">
     <img src="./media/trowel.png" alt="Trowel">
 </p>
@@ -34,3 +40,10 @@ Invoke-Plaster -TemplatePath $template.TemplatePath
 
 The goal of this project is help create common patterns for PowerShell module development.
 Additional features or capabilities that benefit the community are welcome.
+
+[github-actions-badge]: https://github.com/devblackops/stucco/workflows/CI/badge.svg
+[github-actions-build]: https://github.com/devblackops/stucco/actions
+[psgallery-badge]: https://img.shields.io/powershellgallery/dt/stucco.svg
+[psgallery]: https://www.powershellgallery.com/packages/stucco
+[license-badge]: https://img.shields.io/github/license/devblackops/stucco.svg
+[license]: https://www.powershellgallery.com/packages/stucco
