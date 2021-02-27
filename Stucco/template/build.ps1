@@ -12,7 +12,10 @@ param(
     [switch]$Help,
 
     # Optional properties to pass to psake
-    [hashtable]$Properties
+    [hashtable]$Properties,
+
+    # Optional parameters to pass to psake
+    [hashtable]$Parameters
 )
 
 $ErrorActionPreference = 'Stop'
@@ -39,6 +42,6 @@ if ($PSCmdlet.ParameterSetName -eq 'Help') {
         Format-Table -Property Name, Description, Alias, DependsOn
 } else {
     Set-BuildEnvironment -Force
-    Invoke-psake -buildFile $psakeFile -taskList $Task -nologo -properties $Properties
+    Invoke-psake -buildFile $psakeFile -taskList $Task -nologo -properties $Properties -parameters $Parameters
     exit ([int](-not $psake.build_success))
 }

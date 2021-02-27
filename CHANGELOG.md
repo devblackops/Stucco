@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - [**#PR16**](https://github.com/devblackops/Stucco/pull/16) - Add parameter description to example function in template module (via [@mikejwhat](https://github.com/mikejwhat))
+- You can now pass psake [parameters](https://psake.readthedocs.io/en/latest/pass-parameters/) via the template module build script.
 
 ### Changed
 
