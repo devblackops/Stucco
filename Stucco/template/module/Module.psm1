@@ -4,8 +4,7 @@ $private = @(Get-ChildItem -Path (Join-Path -Path $PSScriptRoot -ChildPath 'Priv
 foreach ($import in @($public + $private)) {
     try {
         . $import.FullName
-    }
-    catch {
+    } catch {
         throw "Unable to dot source [$($import.FullName)]"
     }
 }

@@ -26,24 +26,31 @@ function ConvertTo-SpaceIndentation() {
     [OutputType([void])]
     param(
         [Parameter(Mandatory, ValueFromPipeline)]
-        [System.IO.FileInfo]$FileInfo
+        [IO.FileInfo]$FileInfo
     )
 
     process {
         $content = (Get-Content -Raw -Path $FileInfo.FullName) -replace "`t", '    '
-        [System.IO.File]::WriteAllText($FileInfo.FullName, $content)
+        [IO.File]::WriteAllText($FileInfo.FullName, $content)
     }
 }
 
 function Get-TextFilesList {
     [CmdletBinding()]
-    [OutputType([System.IO.FileInfo])]
+    [OutputType([IO.FileInfo])]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, ValueFromPipeline)]
         [string]$Root
     )
-    Get-ChildItem -Path $Root -File -Recurse |
-        Where-Object { @('.gitignore', '.gitattributes', '.ps1', '.psm1', '.psd1', '.json', '.xml', '.cmd', '.mof') -contains $_.Extension }
+
+    begin {
+        $txtFileExtentions = @('.gitignore', '.gitattributes', '.ps1', '.psm1', '.psd1', '.json', '.xml', '.cmd', '.mof')
+    }
+
+    process {
+        Get-ChildItem -Path $Root -File -Recurse |
+            Where-Object { $_.Extension -in $txtFileExtentions }
+    }
 }
 
 function Test-FileUnicode {
@@ -51,25 +58,23 @@ function Test-FileUnicode {
     [OutputType([bool])]
     param(
         [Parameter(Mandatory, ValueFromPipeline)]
-        [System.IO.FileInfo]$FileInfo
+        [IO.FileInfo]$FileInfo
     )
 
     process {
-        $path = $FileInfo.FullName
-        $bytes = [System.IO.File]::ReadAllBytes($path)
+        $bytes     = [IO.File]::ReadAllBytes($FileInfo.FullName)
         $zeroBytes = @($bytes -eq 0)
         return [bool]$zeroBytes.Length
-
     }
 }
 
 function Get-UnicodeFilesList() {
     [CmdletBinding()]
-    [OutputType([System.IO.FileInfo])]
+    [OutputType([IO.FileInfo])]
     param(
         [Parameter(Mandatory)]
         [string]$Root
     )
 
-    Get-TextFilesList $Root | Where-Object { Test-FileUnicode $_ }
+    $root | Get-TextFilesList | Where-Object { Test-FileUnicode $_ }
 }

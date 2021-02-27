@@ -1,94 +1,85 @@
 BeforeAll {
-
-    $moduleName = $env:BHProjectName
-    $manifest = Import-PowerShellDataFile -Path $env:BHPSModuleManifest
-    $outputDir = Join-Path -Path $ENV:BHProjectPath -ChildPath 'Output'
-    $outputModDir = Join-Path -Path $outputDir -ChildPath $env:BHProjectName
-    $outputModVerDir = Join-Path -Path $outputModDir -ChildPath $manifest.ModuleVersion
+    $moduleName         = $env:BHProjectName
+    $manifest           = Import-PowerShellDataFile -Path $env:BHPSModuleManifest
+    $outputDir          = Join-Path -Path $ENV:BHProjectPath -ChildPath 'Output'
+    $outputModDir       = Join-Path -Path $outputDir -ChildPath $env:BHProjectName
+    $outputModVerDir    = Join-Path -Path $outputModDir -ChildPath $manifest.ModuleVersion
     $outputManifestPath = Join-Path -Path $outputModVerDir -Child "$($moduleName).psd1"
-    $changelogPath = Join-Path -Path $env:BHProjectPath -Child 'CHANGELOG.md'
+    $manifestData       = Test-ModuleManifest -Path $outputManifestPath -Verbose:$false -ErrorAction Stop -WarningAction SilentlyContinue
 
-    $script:manifest = $null
+    $changelogPath    = Join-Path -Path $env:BHProjectPath -Child 'CHANGELOG.md'
+    $changelogVersion = Get-Content $changelogPath | ForEach-Object {
+        if ($_ -match "^##\s\[(?<Version>(\d+\.){1,3}\d+)\]") {
+            $changelogVersion = $matches.Version
+            break
+        }
+    }
 
+    $script:manifest    = $null
 }
 Describe 'Module manifest' {
 
     Context 'Validation' {
 
-        It 'has a valid manifest' {
-            {
-                $script:manifest = Test-ModuleManifest -Path $outputManifestPath -Verbose:$false -ErrorAction Stop -WarningAction SilentlyContinue
-            } | Should -Not -Throw
+        It 'Has a valid manifest' {
+            $manifestData | Should -Not -BeNullOrEmpty
         }
 
-        It 'has a valid name in the manifest' {
-            $script:manifest.Name | Should -Be $env:BHProjectName
+        It 'Has a valid name in the manifest' {
+            $manifestData.Name | Should -Be $moduleName
         }
 
-        It 'has a valid root module' {
-            $script:manifest.RootModule | Should -Be "$($moduleName).psm1"
+        It 'Has a valid root module' {
+            $manifestData.RootModule | Should -Be "$($moduleName).psm1"
         }
 
-        It 'has a valid version in the manifest' {
-            $script:manifest.Version -as [Version] | Should -Not -BeNullOrEmpty
+        It 'Has a valid version in the manifest' {
+            $manifestData.Version -as [Version] | Should -Not -BeNullOrEmpty
         }
 
-        It 'has a valid description' {
-            $script:manifest.Description | Should -Not -BeNullOrEmpty
+        It 'Has a valid description' {
+            $manifestData.Description | Should -Not -BeNullOrEmpty
         }
 
-        It 'has a valid author' {
-            $script:manifest.Author | Should -Not -BeNullOrEmpty
+        It 'Has a valid author' {
+            $manifestData.Author | Should -Not -BeNullOrEmpty
         }
 
-        It 'has a valid guid' {
-            {
-                [guid]::Parse($script:manifest.Guid)
-            } | Should -Not -Throw
+        It 'Has a valid guid' {
+            {[guid]::Parse($manifestData.Guid)} | Should -Not -Throw
         }
 
-        It 'has a valid copyright' {
-            $script:manifest.CopyRight | Should -Not -BeNullOrEmpty
+        It 'Has a valid copyright' {
+            $manifestData.CopyRight | Should -Not -BeNullOrEmpty
         }
 
-        It 'has a valid version in the changelog' {
-
-            $script:changelogVersion = $null
-
-            foreach ($line in (Get-Content $changelogPath)) {
-                if ($line -match "^##\s\[(?<Version>(\d+\.){1,3}\d+)\]") {
-                    $script:changelogVersion = $matches.Version
-                    break
-                }
-            }
-            $script:changelogVersion               | Should -Not -BeNullOrEmpty
-            $script:changelogVersion -as [Version] | Should -Not -BeNullOrEmpty
+        It 'Has a valid version in the changelog' {
+            $changelogVersion               | Should -Not -BeNullOrEmpty
+            $changelogVersion -as [Version] | Should -Not -BeNullOrEmpty
         }
 
-        It 'changelog and manifest versions are the same' {
-            $script:changelogVersion -as [Version] | Should -Be ( $script:manifest.Version -as [Version] )
+        It 'Changelog and manifest versions are the same' {
+            $changelogVersion -as [Version] | Should -Be ( $manifestData.Version -as [Version] )
         }
+    }
+}
 
-        if (Get-Command git.exe -ErrorAction SilentlyContinue) {
+Describe 'Git tagging' -Skip {
+    BeforeAll {
+        $gitTagVersion = $null
 
-            It 'is tagged with a valid version' -skip {
-
-                $script:tagVersion = $null
-
-                $thisCommit = git.exe log --decorate --oneline HEAD~1..HEAD
-
-                if ($thisCommit -match 'tag:\s*(\d+(?:\.\d+)*)') {
-                    $script:tagVersion = $matches[1]
-                }
-
-                $script:tagVersion               | Should -Not -BeNullOrEmpty
-                $script:tagVersion -as [Version] | Should -Not -BeNullOrEmpty
-            }
-
-            It 'all versions are the same' {
-                $script:changelogVersion -as [Version] | Should -Be ( $script:manifest.Version -as [Version] )
-                #$script:manifest.Version -as [Version] | Should -Be ( $script:tagVersion -as [Version] )
-            }
+        if ($git = Get-Command git -CommandType Application -ErrorAction SilentlyContinue) {
+            $thisCommit = & $git log --decorate --oneline HEAD~1..HEAD
+            if ($thisCommit -match 'tag:\s*(\d+(?:\.\d+)*)') { $gitTagVersion = $matches[1] }
         }
+    }
+
+    It 'Is tagged with a valid version' {
+        $gitTagVersion               | Should -Not -BeNullOrEmpty
+        $gitTagVersion -as [Version] | Should -Not -BeNullOrEmpty
+    }
+
+    It 'Matches manifest version' {
+        $manifestData.Version -as [Version] | Should -Be ( $gitTagVersion -as [Version])
     }
 }

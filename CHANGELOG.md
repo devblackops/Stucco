@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Required Pester version in template module has been bumped to `5.1.1`
+- Clean up Pester tests in template module
 
 ### Fixed
 
