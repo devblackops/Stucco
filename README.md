@@ -10,7 +10,7 @@
     <img src="./media/trowel.png" alt="Trowel">
 </p>
 
-Stucco is an **opinionated** [Plaster](https://github.com/PowerShell/Plaster) template for building high-quality [PowerShell](https://github.com/PowerShell/PowerShell) modules.
+Stucco is an **opinionated** [Plaster](https://github.com/PowerShellOrg/Plaster) template for building high-quality [PowerShell](https://github.com/PowerShell/PowerShell) modules.
 This template produces PowerShell projects according to a structure that I and many others in the PowerShell community use.
 Apart from the PowerShell module itself, this template creates project scaffolding that enables effective collaboration with the community.
 
