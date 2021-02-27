@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 - [**#PR22**](https://github.com/devblackops/Stucco/pull/22) - Update dependencies for psake, BuildHelpers, and PSScriptAnalzyer (via [@HP41](https://github.com/HP41))
+- [**#PR19**](https://github.com/devblackops/Stucco/pull/19) - Update tests to support Pester v5 (via [@andrewwillett](https://github.com/andrewwillett))
 
 ## [0.2.0] 2019-11-09
 
