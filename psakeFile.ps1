@@ -1,3 +1,6 @@
+properties {
+    $PSBPreference.Help.DefaultLocale = 'en-US'
+}
 
 task default -depends test
 
