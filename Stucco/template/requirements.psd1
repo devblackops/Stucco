@@ -15,7 +15,7 @@
         Version = '2.0.16'
     }
     'PowerShellBuild' = @{
-        Version = '0.4.0'
+        Version = '0.5.0'
     }
     'PSScriptAnalyzer' = @{
         Version = '1.19.1'
