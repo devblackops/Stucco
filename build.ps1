@@ -27,7 +27,7 @@ if ($Bootstrap.IsPresent) {
 
 # Execute psake task(s)
 $psakeFile = './psakeFile.ps1'
-if ($PSCmdlet.ParameterSetName -eq 'Help') {
+if ($Help.IsPresent) {
     Get-PSakeScriptTasks -buildFile $psakeFile  |
         Format-Table -Property Name, Description, Alias, DependsOn
 } else {
