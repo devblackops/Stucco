@@ -77,7 +77,7 @@
               value="Yes"/>
       <choice label='&amp;No'
               help='No, do not include a MkDocs yaml file.'
-              value='MIT'/>
+              value='No'/>
     </parameter>
     <parameter name='MkDocsSiteName'
                type='text'
@@ -157,7 +157,7 @@
   </parameters>
   <content>
     <message>
-Scaffold an opinionated high-quality PowerShell module with psake tasks and GitHub meta documents`n.
+Creating an opinionated high-quality PowerShell module with psake tasks and GitHub meta documents`n.
     </message>
 
     <newModuleManifest destination='${PLASTER_PARAM_ModuleName}\${PLASTER_PARAM_ModuleName}.psd1'
