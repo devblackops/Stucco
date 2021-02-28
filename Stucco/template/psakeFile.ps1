@@ -1,12 +1,10 @@
 properties {
-    # Disable "compiling" module into monolithinc PSM1.
-    # This modifies the default behavior from the "Build" task
-    # in the PowerShellBuild shared psake task module
+    # Set this to $true to create a module with a monolithic PSM1
     $PSBPreference.Build.CompileModule = $false
     $PSBPreference.Help.DefaultLocale = 'en-US'
     $PSBPreference.Test.OutputFile = 'out/testResults.xml'
 }
 
-task default -depends Test
+task Default -depends Test
 
 task Test -FromModule PowerShellBuild -Version '0.4.0'
