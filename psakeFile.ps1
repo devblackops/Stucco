@@ -1,5 +1,7 @@
 properties {
-    $PSBPreference.Publish.PSRepositoryApiKey = $galleryApiKey.GetNetworkCredential().password
+    if ($galleryApiKey) {
+        $PSBPreference.Publish.PSRepositoryApiKey = $galleryApiKey.GetNetworkCredential().password
+    }
 }
 
 task default -depends test
