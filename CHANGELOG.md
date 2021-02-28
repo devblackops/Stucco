@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - [**#PR22**](https://github.com/devblackops/Stucco/pull/22) - Update dependencies for psake, BuildHelpers, and PSScriptAnalzyer (via [@HP41](https://github.com/HP41))
 - [**#PR19**](https://github.com/devblackops/Stucco/pull/19) - Update tests to support Pester v5 (via [@andrewwillett](https://github.com/andrewwillett))
-- Classes are now properly supported if the option to include them is selected when create a module from the template
+- Classes are now properly supported if the option to include them is selected when creating a module from the template
 
 ## [0.2.0] 2019-11-09
 
