@@ -9,7 +9,9 @@ param(
 
     # List available build tasks
     [parameter(ParameterSetName = 'Help')]
-    [switch]$Help
+    [switch]$Help,
+
+    [pscredential]$PSGalleryApiKey
 )
 
 $ErrorActionPreference = 'Stop'
@@ -32,7 +34,10 @@ if ($Help.IsPresent) {
         Format-Table -Property Name, Description, Alias, DependsOn
 } else {
     Set-BuildEnvironment -Force
-
-    Invoke-psake -buildFile $psakeFile -taskList $Task -nologo
+    $parameters = @{}
+    if ($PSGalleryApiKey) {
+        $parameters['galleryApiKey'] = $PSGalleryApiKey
+    }
+    Invoke-psake -buildFile $psakeFile -taskList $Task -nologo -parameters $parameters
     exit ( [int]( -not $psake.build_success ) )
 }

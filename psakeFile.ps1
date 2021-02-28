@@ -1,8 +1,8 @@
 properties {
-    $PSBPreference.Help.DefaultLocale = 'en-US'
+    $PSBPreference.Publish.PSRepositoryApiKey = $galleryApiKey.GetNetworkCredential().password
 }
 
 task default -depends test
 
-task Test -FromModule PowerShellBuild -Version 0.4.0
+task Test -FromModule PowerShellBuild -Version 0.5.0
 
