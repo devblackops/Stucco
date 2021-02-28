@@ -8,10 +8,10 @@
     Description       = 'An opinionated Plaster template for high-quality PowerShell modules'
     PowerShellVersion = '3.0'
     RequiredModules   = @(
-        @{ModuleName = 'BuildHelpers';    ModuleVersion = '2.0.11'}
+        @{ModuleName = 'BuildHelpers';    ModuleVersion = '2.0.16'}
         @{ModuleName = 'Plaster';         ModuleVersion = '1.1.3'}
         @{ModuleName = 'psake';           ModuleVersion = '4.9.0'}
-        @{ModuleName = 'PowerShellBuild'; ModuleVersion = '0.4.0'}
+        @{ModuleName = 'PowerShellBuild'; ModuleVersion = '0.5.0'}
     )
     FunctionsToExport = @(
         'Get-StuccoTemplate'
@@ -32,10 +32,10 @@
                 }
             )
             Tags         = @('Plaster', 'Module', 'Template', 'PSEdition_Core', 'PSEdition_Desktop')
-            LicenseUri   = 'https://raw.githubusercontent.com/devblackops/Stucco/master/LICENSE'
+            LicenseUri   = 'https://raw.githubusercontent.com/devblackops/Stucco/main/LICENSE'
             ProjectUri   = 'https://github.com/devblackops/Stucco'
-            IconUri      = 'https://raw.githubusercontent.com/devblackops/Stucco/master/media/trowel.png'
-            ReleaseNotes = 'https://raw.githubusercontent.com/devblackops/Stucco/master/CHANGELOG.md'
+            IconUri      = 'https://raw.githubusercontent.com/devblackops/Stucco/main/media/trowel.png'
+            ReleaseNotes = 'https://raw.githubusercontent.com/devblackops/Stucco/main/CHANGELOG.md'
         }
     }
 }
