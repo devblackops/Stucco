@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [**#PR16**](https://github.com/devblackops/Stucco/pull/16) - Add parameter description to example function in template module (via [@mikejwhat](https://github.com/mikejwhat))
 - You can now pass psake [parameters](https://psake.readthedocs.io/en/latest/pass-parameters/) via the template module build script.
 - Added optional VSCode dev container support to Plaster template
+- Added function `Get-StuccoTemplate`
+  - Returns Stucco's Plaster template object
+- Added function `New-StuccoModule`
+  - Creates a new module based on the Stucco module template
 
 ### Changed
 
