@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.0] 2021-04-08
+
+### Changed
+
+- Bumped `PowerShellBuild` dependency to `0.6.1`.
+- The `-DestinationPath` parameter in `New-StuccoModule` is explicitly set to `Position=0` so the
+parameter name is no longer mandatory (e.g.: `New-StuccoModule C:\my\path\to\module`) now works as expected.
+### Fixed
+
+- Removed logic trying to dot source `Initialize.ps1`. This file doesn't exist in the templated module.
+
 ## [0.3.1] 2021-02-27
 
 ### Fixed
