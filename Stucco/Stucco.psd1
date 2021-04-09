@@ -1,6 +1,6 @@
 @{
     RootModule        = 'Stucco.psm1'
-    ModuleVersion     = '0.3.1'
+    ModuleVersion     = '0.4.0'
     GUID              = '24effa48-ac05-4efd-872d-40d556089ce0'
     Author            = 'Brandon Olin'
     CompanyName       = 'Community'
@@ -11,7 +11,7 @@
         @{ModuleName = 'BuildHelpers';    ModuleVersion = '2.0.16'}
         @{ModuleName = 'Plaster';         ModuleVersion = '1.1.3'}
         @{ModuleName = 'psake';           ModuleVersion = '4.9.0'}
-        @{ModuleName = 'PowerShellBuild'; ModuleVersion = '0.5.0'}
+        @{ModuleName = 'PowerShellBuild'; ModuleVersion = '0.6.1'}
     )
     FunctionsToExport = @(
         'Get-StuccoTemplate'
