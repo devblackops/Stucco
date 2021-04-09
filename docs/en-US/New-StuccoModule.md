@@ -14,13 +14,13 @@ Creates a new module based on the Stucco module template
 
 ### notemplate (Default)
 ```
-New-StuccoModule -DestinationPath <String> [-TemplateParameters <Hashtable>] [-Force] [-NoLogo] [-PassThru]
+New-StuccoModule [-DestinationPath] <String> [-TemplateParameters <Hashtable>] [-Force] [-NoLogo] [-PassThru]
  [<CommonParameters>]
 ```
 
 ### template
 ```
-New-StuccoModule -DestinationPath <String> -Template <PSObject> [-TemplateParameters <Hashtable>] [-Force]
+New-StuccoModule [-DestinationPath] <String> -Template <PSObject> [-TemplateParameters <Hashtable>] [-Force]
  [-NoLogo] [-PassThru] [<CommonParameters>]
 ```
 
@@ -47,7 +47,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

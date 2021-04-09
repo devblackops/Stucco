@@ -38,7 +38,7 @@ function New-StuccoModule {
     [CmdletBinding(DefaultParameterSetName = 'notemplate')]
     param(
         # Destination path for new module
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         [string]$DestinationPath,
 
         # Plaster template object
