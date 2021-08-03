@@ -2,6 +2,17 @@
 param(
     # Build task(s) to execute
     [parameter(ParameterSetName = 'task', position = 0)]
+    [ArgumentCompleter( {
+        param($Command, $Parameter, $WordToComplete, $CommandAst, $FakeBoundParams)
+        $psakeFile = './psakeFile.ps1'
+        switch ($Parameter) {
+            'Task' {
+                Get-PSakeScriptTasks -buildFile $psakeFile | Select-Object -ExpandProperty Name
+            }
+            Default {
+            }
+        }
+    })]
     [string[]]$Task = 'default',
 
     # Bootstrap dependencies
