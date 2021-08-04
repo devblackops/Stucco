@@ -7,7 +7,14 @@ param(
         $psakeFile = './psakeFile.ps1'
         switch ($Parameter) {
             'Task' {
-                Get-PSakeScriptTasks -buildFile $psakeFile | Select-Object -ExpandProperty Name
+                if ([string]::IsNullOrEmpty($WordToComplete)) {
+                    Get-PSakeScriptTasks -buildFile $psakeFile | Select-Object -ExpandProperty Name
+                }
+                else {
+                    Get-PSakeScriptTasks -buildFile $psakeFile |
+                        Where-Object { $_.Name -match $WordToComplete } |
+                        Select-Object -ExpandProperty Name
+                }
             }
             Default {
             }
