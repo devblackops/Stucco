@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.1] Unreleased
+
+### Fixed
+
+[**#PR27**](https://github.com/devblackops/Stucco/pull/27) - Fix comment-based help tests and filtering out common parameters (via [@HeyItsGilbert](https://github.com/HeyItsGilbert))
 ## [0.4.0] 2021-04-08
 
 ### Changed
