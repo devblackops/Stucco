@@ -35,7 +35,7 @@ function New-StuccoModule {
     .LINK
         Get-StuccoTemplate
     #>
-    [CmdletBinding(DefaultParameterSetName = 'notemplate')]
+    [CmdletBinding(DefaultParameterSetName = 'notemplate', SupportsShouldProcess)]
     param(
         # Destination path for new module
         [Parameter(Mandatory, Position = 0)]
@@ -77,7 +77,10 @@ function New-StuccoModule {
                 NoLogo          = $NoLogo.IsPresent
                 PassThru        = $PassThru.IsPresent
             }
-            Invoke-Plaster @plasterParams @TemplateParameters
+
+            if ($Force -or $PSCmdlet.ShouldProcess($templatePath, 'Create module from template')) {
+                Invoke-Plaster @plasterParams @TemplateParameters
+            }
         } else {
             # We should never see this but...belt and suspenders and all that.
             Write-Error "Unable to find Plaster template at [$templatePath]"

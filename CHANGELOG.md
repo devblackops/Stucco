@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Bumped `PowerShellBuild` dependency to `0.6.1`.
 - The `-DestinationPath` parameter in `New-StuccoModule` is explicitly set to `Position=0` so the
 parameter name is no longer mandatory (e.g.: `New-StuccoModule C:\my\path\to\module`) now works as expected.
+- Add `-WhatIf` support to `New-StuccoModule`
+
 ### Fixed
 
 - Removed logic trying to dot source `Initialize.ps1`. This file doesn't exist in the templated module.
