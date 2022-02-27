@@ -142,15 +142,22 @@
       <choice label='Azure &amp;Pipelines'
               help='Adds an Azure Pipelines yaml file.'
               value='AzurePipelines'/>
-    <choice label='Git&amp;Hub Actions'
+      <choice label='Git&amp;Hub Actions'
               help='Adds a GitHub Actions workflow file.'
               value='GitHubActions'/>
       <choice label='&amp;GitLab CI'
               help='Adds a GitLab CI yaml file.'
               value='GitLabCI'/>
+      <choice label='&amp;Jenkins CI'
+              help='Adds a Jenkkinsfile file.'
+              value='JenkinsCI'/>
+      <choice label='&amp;MJenkins CI(MultiStage)'
+              help='Adds a Jenkinsfile with multiple stages.'
+              value='JenkinsCI-MultiStage'/>
       <choice label='&amp;None'
               help='No license specified.'
               value='None'/>
+
     </parameter>
 
 
@@ -209,6 +216,14 @@ Creating an opinionated high-quality PowerShell module with psake tasks and GitH
       source='template/cicd/.gitlab-ci.yml'
       destination='.gitlab-ci.yml'
       condition="$PLASTER_PARAM_CICD -eq 'GitLabCI'"/>
+    <templateFile
+      source='template/cicd/jenkinsfile'
+      destination='Jenkinsfile'
+      condition="$PLASTER_PARAM_CICD -eq 'JenkinsCI'"/>
+    <templateFile
+      source='template/cicd/jenkinsfile-multistage'
+      destination='Jenkinsfile'
+      condition="$PLASTER_PARAM_CICD -eq 'JenkinsCI-MultiStage'"/>
 
     <!-- Project docs -->
     <templateFile
