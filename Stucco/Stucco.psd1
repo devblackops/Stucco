@@ -1,6 +1,6 @@
 @{
     RootModule        = 'Stucco.psm1'
-    ModuleVersion     = '0.4.1'
+    ModuleVersion     = '0.5.0'
     GUID              = '24effa48-ac05-4efd-872d-40d556089ce0'
     Author            = 'Brandon Olin'
     CompanyName       = 'Community'
