@@ -1,8 +1,8 @@
-name: CI
+name: Test
 on: [push, pull_request]
 jobs:
   test:
-    name: Run Tests
+    name: Test
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
