@@ -72,8 +72,9 @@ Describe 'Module manifest' {
 Describe 'Git tagging' -Skip {
     BeforeAll {
         $gitTagVersion = $null
-
-        if ($git = Get-Command git -CommandType Application -ErrorAction SilentlyContinue) {
+        
+        # Ensure to only pull in a single git executable (in case multiple git's are found on path).
+        if ($git = (Get-Command git -CommandType Application -ErrorAction SilentlyContinue)[0]) {
             $thisCommit = & $git log --decorate --oneline HEAD~1..HEAD
             if ($thisCommit -match $gitTagMatchRegEx) { $gitTagVersion = $matches[1] }
         }
