@@ -213,7 +213,7 @@ Creating an opinionated high-quality PowerShell module with psake tasks and GitH
       destination='.github/workflows/CI.yaml'
       condition="$PLASTER_PARAM_CICD -eq 'GitHubActions'"/>
     <templateFile
-      source='template/cicd/.gitlab-ci.yml'
+      source='template/cicd/gitlab-ci.yml'
       destination='.gitlab-ci.yml'
       condition="$PLASTER_PARAM_CICD -eq 'GitLabCI'"/>
     <templateFile
