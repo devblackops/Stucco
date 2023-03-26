@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <plasterManifest
   schemaVersion="1.1"
   templateType="Project" xmlns="http://www.microsoft.com/schemas/PowerShell/Plaster/v1">
@@ -195,7 +195,7 @@ Creating an opinionated high-quality PowerShell module with psake tasks and GitH
 
     <!-- VSCode dev container -->
     <templateFile
-      source="template/.devcontainer/**"
+      source="template/_devcontainer/**"
       destination=".devcontainer"
       condition="$PLASTER_PARAM_devcontainer -eq 'Yes'"/>
 
