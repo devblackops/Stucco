@@ -1,6 +1,6 @@
 @{
     RootModule        = 'Stucco.psm1'
-    ModuleVersion     = '0.5.0'
+    ModuleVersion     = '0.5.1'
     GUID              = '24effa48-ac05-4efd-872d-40d556089ce0'
     Author            = 'Brandon Olin'
     CompanyName       = 'Community'
@@ -9,7 +9,7 @@
     PowerShellVersion = '3.0'
     RequiredModules   = @(
         @{ModuleName = 'BuildHelpers';    ModuleVersion = '2.0.16'}
-        @{ModuleName = 'Plaster';         ModuleVersion = '1.1.3'}
+        @{ModuleName = 'Plaster';         ModuleVersion = '1.1.4'}
         @{ModuleName = 'psake';           ModuleVersion = '4.9.0'}
         @{ModuleName = 'PowerShellBuild'; ModuleVersion = '0.6.1'}
     )
@@ -25,7 +25,7 @@
             Extensions   = @(
                 @{
                     Module         = 'Plaster'
-                    MinimumVersion = '1.1.3'
+                    MinimumVersion = '1.1.4'
                     Details        = @{
                         TemplatePaths = @('.')
                     }
