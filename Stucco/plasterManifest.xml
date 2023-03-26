@@ -260,7 +260,7 @@ Creating an opinionated high-quality PowerShell module with psake tasks and GitH
       source='template/tests/**'
       destination='tests'/>
     <file
-      source='template/.vscode/**'
+      source='template/_vscode/**'
       destination='.vscode'/>
 
     <!-- Project license -->
