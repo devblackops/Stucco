@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <plasterManifest
   schemaVersion="1.1"
   templateType="Project" xmlns="http://www.microsoft.com/schemas/PowerShell/Plaster/v1">
   <metadata>
     <name>Stucco</name>
     <id>160a95b4-33f8-4429-8a68-5ceb587ffede</id>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <title>High-Quality PowerShell Module Template</title>
     <description>An opinionated Plaster template for high-quality PowerShell modules</description>
     <author>Brandon Olin</author>
