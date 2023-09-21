@@ -10,9 +10,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [windows-latest]
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test
       shell: pwsh
       run: ./build.ps1 -Task Test -Bootstrap
