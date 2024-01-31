@@ -4,11 +4,7 @@ BeforeDiscovery {
 
     function global:FilterOutCommonParams {
         param ($Params)
-        $commonParams = @(
-            'Debug', 'ErrorAction', 'ErrorVariable', 'InformationAction', 'InformationVariable',
-            'OutBuffer', 'OutVariable', 'PipelineVariable', 'Verbose', 'WarningAction',
-            'WarningVariable', 'Confirm', 'Whatif'
-        )
+        $commonParams = [System.Management.Automation.PSCmdlet]::OptionalCommonParameters + [System.Management.Automation.PSCmdlet]::CommonParameters
         $params | Where-Object { $_.Name -notin $commonParams } | Sort-Object -Property Name -Unique
     }
 
