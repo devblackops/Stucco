@@ -14,6 +14,6 @@ jobs:
       - name: Publish
         uses: natescherer/publish-powershell-action@v1
         with:
-          token: ${{ secrets..PS_GALLERY_API_KEY }}
+          token: ${{ secrets.PS_GALLERY_API_KEY }}
           target: gallery
           path: Stucco
