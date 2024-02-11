@@ -22,5 +22,8 @@
 			"extensions": ["ms-vscode.powershell", "davidanson.vscode-markdownlint"]
 		}
 	},
-	"postCreateCommand": "pwsh -c './build.ps1 -Task Init -Bootstrap'"
+	"postCreateCommand": "pwsh -c './build.ps1 -Task Init -Bootstrap'",
+	"mounts": [
+		"source=${localEnv:USERPROFILE}/.ssh,target=/root/.ssh,type=bind,consistency=cached"
+	]
 }
