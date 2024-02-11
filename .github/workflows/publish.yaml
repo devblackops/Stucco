@@ -12,8 +12,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Publish
-        shell: pwsh
-        run: |
-          $apiKey = '${{ secrets.PS_GALLERY_API_KEY }}' | ConvertTo-SecureString -AsPlainText -Force
-          $cred = [pscredential]::new('apikey', $apiKey)
-          ./build.ps1 -Task Publish -PSGalleryApiKey $cred -Bootstrap
+        uses: natescherer/publish-powershell-action@v1
+        with:
+          token: ${{ secrets..PS_GALLERY_API_KEY }}
+          target: gallery
+          path: Stucco
