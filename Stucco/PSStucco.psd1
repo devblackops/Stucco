@@ -14,8 +14,8 @@
         @{ModuleName = 'PowerShellBuild'}
     )
     FunctionsToExport = @(
-        'Get-PSStuccoTemplate'
-        'New-PSStuccoModule'
+        'Get-StuccoTemplate'
+        'New-StuccoModule'
     )
     CmdletsToExport   = @()
     VariablesToExport = @()
