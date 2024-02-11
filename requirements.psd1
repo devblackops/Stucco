@@ -2,14 +2,10 @@
     PSDependOptions = @{
         Target = 'CurrentUser'
     }
-    'Pester' = @{
-        Parameters = @{
-            SkipPublisherCheck = $true
-        }
-    }
-    'psake'
-    'BuildHelpers'
-    'Plaster'
-    'PowerShellBuild'
-    'PSScriptAnalyzer'
+    'Pester' = 'latest'
+    'psake' = 'latest'
+    'BuildHelpers' = 'latest'
+    'Plaster' = 'latest'
+    'PowerShellBuild' = 'latest'
+    'PSScriptAnalyzer' = 'latest'
 }
