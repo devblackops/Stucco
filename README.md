@@ -64,9 +64,7 @@ Invoke-Plaster -TemplatePath $template.TemplatePath
 The goal of this project is help create common patterns for PowerShell module development.
 Additional features or capabilities that benefit the community are welcome.
 
-[github-actions-badge]: https://github.com/devblackops/stucco/workflows/CI/badge.svg
-[github-actions-build]: https://github.com/devblackops/stucco/actions
 [psgallery-badge]: https://img.shields.io/powershellgallery/dt/stucco.svg
-[psgallery]: https://www.powershellgallery.com/packages/stucco
-[license-badge]: https://img.shields.io/github/license/devblackops/stucco.svg
-[license]: https://www.powershellgallery.com/packages/stucco
+[psgallery]: https://www.powershellgallery.com/packages/PSStucco
+[license-badge]: https://img.shields.io/github/license/jimbrig/stucco.svg
+[license]: https://www.powershellgallery.com/packages/psstucco
