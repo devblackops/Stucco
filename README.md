@@ -1,23 +1,38 @@
-# Stucco
+# PSStucco <img src="./media/trowel.png" alt="Trowel"  height="8%" width="8%" style="float:right" align="right">
+
+> [!IMPORTANT]  
+> This is a rebuild of the [Stucco](https://github.com/devblackops/Stucco) Module with some various tweaks and bugfixes for personal use.
+> Feel free to use also. You can view the differences and details by looking at [the commit changes](https://github.com/devblackops/Stucco/compare/main...jimbrig:PSStucco:main) and the [issues from devblackops/Stucco](https://github.com/devblackops/Stucco/issues).
+
+## Contents
+
+- [Badges](#badges)
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contribution](#contribution)
+
+***
+
+## Badges
 
 | GitHub Actions |  PS Gallery | License |
 |----------------|-------------|---------|
 [![GitHub Actions Status][github-actions-badge]][github-actions-build] | [![PowerShell Gallery][psgallery-badge]][psgallery] | [![License][license-badge]][license]
 
----
 
-<p align="center">
-    <img src="./media/trowel.png" alt="Trowel">
-</p>
+## Overview
 
-Stucco is an **opinionated** [Plaster](https://github.com/PowerShellOrg/Plaster) template for building high-quality [PowerShell](https://github.com/PowerShell/PowerShell) modules.
-This template produces PowerShell projects according to a structure that I and many others in the PowerShell community use.
-Apart from the PowerShell module itself, this template creates project scaffolding that enables effective collaboration with the community.
+> [!TIP]
+> (PS)Stucco is an **opinionated** [Plaster](https://github.com/PowerShellOrg/Plaster) template for building high-quality [PowerShell](https://github.com/PowerShell/PowerShell) modules.
+> This template produces PowerShell projects according to a structure that I and many others in the PowerShell community use.
+> Apart from the PowerShell module itself, this template creates project scaffolding that enables effective collaboration with the community.
 
 
 ## Features
 
-- MIT or Apache licensing options
+- MIT, Apache, or Unlicense licensing options
 - Changelog following [Keep a Changelog](http://keepachangelog.com/) guidelines with [Semantic Versioning](http://semver.org/)
 - Optional [Code of Conduct](http://contributor-covenant.org)
 - Optional [Read The Docs](https://readthedocs.org/) support for online documentation using [Mkdocs](https://www.mkdocs.org/)
@@ -28,6 +43,14 @@ Apart from the PowerShell module itself, this template creates project scaffoldi
 - GitHub templates for contributing, issues, and pull requests
 - VSCode tasks
 
+## Installation
+
+Install from the [PowerShell Gallery]():
+
+```powershell
+Install-PSResource PSStucco
+```
+
 ## Usage
 
 ```powershell
@@ -36,7 +59,7 @@ $template = Get-PlasterTemplate -IncludeInstalledModules | Where-Object Template
 Invoke-Plaster -TemplatePath $template.TemplatePath
 ```
 
-## Contributions Welcome
+## Contribution
 
 The goal of this project is help create common patterns for PowerShell module development.
 Additional features or capabilities that benefit the community are welcome.
