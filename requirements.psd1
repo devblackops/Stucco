@@ -2,19 +2,14 @@
     PSDependOptions = @{
         Target = 'CurrentUser'
     }
-    'psake' = @{
-        Version = '4.9.0'
+    'Pester' = @{
+        Parameters = @{
+            SkipPublisherCheck = $true
+        }
     }
-    'BuildHelpers' = @{
-        Version = '2.0.16'
-    }
-    'Plaster' = @{
-        Version = '1.1.3'
-    }
-    'PowerShellBuild' = @{
-        Version = '0.6.1'
-    }
-    'PSScriptAnalyzer' = @{
-        Version = '1.19.1'
-    }
+    'psake'
+    'BuildHelpers'
+    'Plaster'
+    'PowerShellBuild'
+    'PSScriptAnalyzer'
 }
