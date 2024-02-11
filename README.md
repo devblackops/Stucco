@@ -17,9 +17,9 @@
 
 ## Badges
 
-| GitHub Actions |  PS Gallery | License |
+| Publish |  PS Gallery | License |
 |----------------|-------------|---------|
-[![GitHub Actions Status][github-actions-badge]][github-actions-build] | [![PowerShell Gallery][psgallery-badge]][psgallery] | [![License][license-badge]][license]
+[![Publish](https://github.com/jimbrig/PSStucco/actions/workflows/publish.yaml/badge.svg)](https://github.com/jimbrig/PSStucco/actions/workflows/publish.yaml) | [![PowerShell Gallery][psgallery-badge]][psgallery] | [![License][license-badge]][license]
 
 
 ## Overview
