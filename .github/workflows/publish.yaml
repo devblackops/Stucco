@@ -16,4 +16,4 @@ jobs:
         with:
           token: ${{ secrets.PS_GALLERY_API_KEY }}
           target: gallery
-          path: Stucco
+          path: PSStucco
