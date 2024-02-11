@@ -1,21 +1,21 @@
 @{
-    RootModule        = 'Stucco.psm1'
-    ModuleVersion     = '0.5.1'
+    RootModule        = 'PSStucco.psm1'
+    ModuleVersion     = '0.6.0'
     GUID              = '24effa48-ac05-4efd-872d-40d556089ce0'
-    Author            = 'Brandon Olin'
+    Author            = 'Jimmy Briggs'
     CompanyName       = 'Community'
-    Copyright         = '(c) Brandon Olin. All rights reserved.'
+    Copyright         = '(c) Jimmy Briggs. All rights reserved.'
     Description       = 'An opinionated Plaster template for high-quality PowerShell modules'
     PowerShellVersion = '3.0'
     RequiredModules   = @(
-        @{ModuleName = 'BuildHelpers';    ModuleVersion = '2.0.16'}
-        @{ModuleName = 'Plaster';         ModuleVersion = '1.1.4'}
-        @{ModuleName = 'psake';           ModuleVersion = '4.9.0'}
-        @{ModuleName = 'PowerShellBuild'; ModuleVersion = '0.6.1'}
+        @{ModuleName = 'BuildHelpers'}
+        @{ModuleName = 'Plaster'}
+        @{ModuleName = 'psake'}
+        @{ModuleName = 'PowerShellBuild'}
     )
     FunctionsToExport = @(
-        'Get-StuccoTemplate'
-        'New-StuccoModule'
+        'Get-PSStuccoTemplate'
+        'New-PSStuccoModule'
     )
     CmdletsToExport   = @()
     VariablesToExport = @()
@@ -32,10 +32,10 @@
                 }
             )
             Tags         = @('Plaster', 'Module', 'Template', 'PSEdition_Core', 'PSEdition_Desktop')
-            LicenseUri   = 'https://raw.githubusercontent.com/devblackops/Stucco/main/LICENSE'
-            ProjectUri   = 'https://github.com/devblackops/Stucco'
-            IconUri      = 'https://raw.githubusercontent.com/devblackops/Stucco/main/media/trowel.png'
-            ReleaseNotes = 'https://raw.githubusercontent.com/devblackops/Stucco/main/CHANGELOG.md'
+            LicenseUri   = 'https://raw.githubusercontent.com/jimbrig/PSStucco/main/LICENSE'
+            ProjectUri   = 'https://github.com/jimbrig/PSStucco'
+            IconUri      = 'https://raw.githubusercontent.com/jimbrig/Stucco/main/media/trowel.png'
+            ReleaseNotes = 'https://raw.githubusercontent.com/jimbrig/Stucco/main/CHANGELOG.md'
         }
     }
 }
